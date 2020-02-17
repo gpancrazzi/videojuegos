@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/videojuegos.css">
+
+        <title>VideoJuegos Retro PS1</title>
+
+        <link rel="shortcut icon" type="image/x-icon" href="img/joystick_game_games_5970.ico">
+    </head>
+    <body>
+        <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+            <a class="navbar-brand" th:href="@{/}">
+                <img src="img/iconfinder_Games1_2316002.png" width="30" height="30" class="d-inline-block align-top" alt="">
+                VideoJuegos Retro PS1
+            </a>
+            <form th:action="@{/buscar}" class="form-inline my-2 my-lg-0">
+                <input autofocus="autofocus" name="q" class="form-control mr-sm-2" type="search" th:placeholder="${param.q}" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            </form>
+        </nav>
+
+        <div class="container mt-4 vj-destacados">
+            <div class="row">
+                <p th:text="${#lists.isEmpty(videojuegos) ? 'No se encontraron resultados!' : null}"></p>
+                <div th:each="juego : ${videojuegos}" class="col-md-3 mb-4">
+                    <div class="card">
+                        <img th:src="${juego.imagenUrl}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 th:text="${juego.nombre}" class="card-title"></h5>
+                            <p>
+                                <a th:href="@{/videojuegosPorDistribuidor(distribuidorId=${juego.distribuidor.id})}" class="badge badge-pill badge-dark" th:text="${juego.distribuidor.nombre}"></a>
+                            </p>
+                            <p th:text="${juego.descripcion}" class="card-text"></p>
+                        </div>
+                        <div class="card-footer text-muted">
+                            <a th:href="@{/verDetalles(id=${juego.id})}" class="btn btn-primary">Ver guía completa</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>
